@@ -2,10 +2,20 @@ package com.fuicuiedu.idedemo.interview_demo.xml;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.fuicuiedu.idedemo.interview_demo.R;
+import com.fuicuiedu.idedemo.interview_demo.entity.Book;
+
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,7 +35,7 @@ public class XmlActivity extends AppCompatActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.xml_sax_btn:
-                Toast.makeText(getApplicationContext(),"saxBtn",Toast.LENGTH_SHORT).show();
+                SAXparser();
                 break;
             case R.id.xml_dom_btn:
                 Toast.makeText(getApplicationContext(),"domBtn",Toast.LENGTH_SHORT).show();
@@ -41,4 +51,19 @@ public class XmlActivity extends AppCompatActivity {
         super.onDestroy();
         unbinder.unbind();
     }
+
+    //Sax解析XMl
+    private void SAXparser(){
+        try {
+            InputStream inputStream = getAssets().open("Books.xml");
+            SaxBookParser saxBookParser = new SaxBookParser();
+            List<Book> books = saxBookParser.parser(inputStream);
+            for (Book book : books){
+                Log.e("SAXparser",book.toString());
+            }
+        } catch (Exception e) {
+        }
+    }
+
+
 }
