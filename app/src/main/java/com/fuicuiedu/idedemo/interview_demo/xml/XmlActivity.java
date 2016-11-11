@@ -41,7 +41,7 @@ public class XmlActivity extends AppCompatActivity {
                 DOMparser();
                 break;
             case R.id.xml_pull_btn:
-                Toast.makeText(getApplicationContext(),"pullBtn",Toast.LENGTH_SHORT).show();
+                PULLparser();
                 break;
         }
     }
@@ -73,6 +73,19 @@ public class XmlActivity extends AppCompatActivity {
             List<Book> books = domBookParser.parse(inputStream);
             for (Book book :books){
                 Log.e("DOMparser",book.toString());
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    //Pull解析XML
+    private void PULLparser(){
+        try {
+            InputStream inputStream = getAssets().open("Books.xml");
+            PullBookParser pullBookParser = new PullBookParser();
+            List<Book> books = pullBookParser.parse(inputStream);
+            for (Book book :books){
+                Log.e("PULLparser",book.toString());
             }
         } catch (Exception e) {
         }

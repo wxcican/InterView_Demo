@@ -1,5 +1,7 @@
 package com.fuicuiedu.idedemo.interview_demo.xml;
 
+import android.util.Log;
+
 import com.fuicuiedu.idedemo.interview_demo.entity.Book;
 
 import org.w3c.dom.Document;
@@ -41,6 +43,13 @@ public class DomBookParser {
             Book book = new Book();
             //拿到单个的一个节点“book”
             Node item = items.item(i);
+
+            for (int k = 0;k<item.getAttributes().getLength();k++){
+                if (item.getAttributes().item(k).getNodeName().equals("aaa")){
+                    Log.e("aaa","aaa = " + item.getAttributes().item(k).getNodeValue());
+                }
+            }
+
             //获取节点的子节点列表
             NodeList properties = item.getChildNodes();
             for (int j = 0;j<properties.getLength();j++){
