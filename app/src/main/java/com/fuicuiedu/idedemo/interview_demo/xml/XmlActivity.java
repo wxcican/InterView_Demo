@@ -38,7 +38,7 @@ public class XmlActivity extends AppCompatActivity {
                 SAXparser();
                 break;
             case R.id.xml_dom_btn:
-                Toast.makeText(getApplicationContext(),"domBtn",Toast.LENGTH_SHORT).show();
+                DOMparser();
                 break;
             case R.id.xml_pull_btn:
                 Toast.makeText(getApplicationContext(),"pullBtn",Toast.LENGTH_SHORT).show();
@@ -60,6 +60,19 @@ public class XmlActivity extends AppCompatActivity {
             List<Book> books = saxBookParser.parser(inputStream);
             for (Book book : books){
                 Log.e("SAXparser",book.toString());
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    //Dom解析XML
+    private void DOMparser(){
+        try {
+            InputStream inputStream = getAssets().open("Books.xml");
+            DomBookParser domBookParser = new DomBookParser();
+            List<Book> books = domBookParser.parse(inputStream);
+            for (Book book :books){
+                Log.e("DOMparser",book.toString());
             }
         } catch (Exception e) {
         }

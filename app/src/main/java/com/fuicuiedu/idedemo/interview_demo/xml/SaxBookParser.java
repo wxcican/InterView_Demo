@@ -1,5 +1,9 @@
 package com.fuicuiedu.idedemo.interview_demo.xml;
 
+
+import android.util.Log;
+import android.widget.Toast;
+
 import com.fuicuiedu.idedemo.interview_demo.entity.Book;
 
 import org.xml.sax.Attributes;
@@ -33,6 +37,7 @@ public class SaxBookParser {
         saxParser.parse(inputStream,myHandler);
 
         return myHandler.getBooks();
+
     }
 
     //自定义Handler继承DefaultHandler（自定义事件处理逻辑）
@@ -60,7 +65,17 @@ public class SaxBookParser {
             super.startElement(uri, localName, qName, attributes);
             if (localName.equals("book")){
                 book = new Book();
+                //for循环找到节点内所有属性
+                for (int i = 0;i<attributes.getLength();i++){
+                    //判断属性的名称
+                    if(attributes.getQName(i).equals("id")){
+                        //拿到id的值
+                        String id = attributes.getValue(i);
+                        book.setId(Integer.parseInt(id));
+                    }
+                }
             }
+
             //将字符长度设置为0，以便重新开始读取元素内的字符节点
             builder.setLength(0);
         }
@@ -75,15 +90,15 @@ public class SaxBookParser {
 
         //最后endElement方法被调用，我们可以做收尾的相关工作
         @Override
-        public void endElement(String uri, String localName, String qName) throws SAXException {
-            super.endElement(uri, localName, qName);
-            if (localName.equals("id")){
+        public void endElement(String uri, String calName, String qName) throws SAXException {
+            super.endElement(uri, calName, qName);
+            if (calName.equals("id")){
                 book.setId(Integer.parseInt(builder.toString()));
-            }else if (localName.equals("name")){
+            }else if (calName.equals("name")){
                 book.setName(builder.toString());
-            }else if (localName.equals("price")){
+            }else if (calName.equals("price")){
                 book.setPrice(Float.parseFloat(builder.toString()));
-            }else if (localName.equals("book")){
+            }else if (calName.equals("book")){
                 //book构建好后添加到我的集合中
                 books.add(book);
             }
