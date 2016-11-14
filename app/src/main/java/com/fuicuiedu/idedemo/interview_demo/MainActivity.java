@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.fuicuiedu.idedemo.interview_demo.json.JsonActivity;
 import com.fuicuiedu.idedemo.interview_demo.xml.XmlActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case 1:
-                        Toast.makeText(getApplicationContext(),"json解析未实现",Toast.LENGTH_SHORT).show();
+                        intent = new Intent(getApplicationContext(), JsonActivity.class);
+                        startActivity(intent);
                         break;
                     case 2:
                         Toast.makeText(getApplicationContext(),"html解析未实现",Toast.LENGTH_SHORT).show();
